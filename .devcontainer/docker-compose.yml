@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  vscode:
+    build: .
+    volumes:
+      # Persistent extensions
+      - vscode-extensions:/root/.vscode-server/extensions
+      # And/or for VS Code Insiders
+      - vscode-extensions-insiders:/root/.vscode-server-insiders/extensions
+    environment:
+      - TZ=
+    entrypoint: zsh -c "while sleep 1000; do :; done"
+
+volumes:
+  vscode-extensions:
+  vscode-extensions-insiders:
