@@ -8,6 +8,8 @@ services:
       - vscode-extensions:/root/.vscode-server/extensions
       # And/or for VS Code Insiders
       - vscode-extensions-insiders:/root/.vscode-server-insiders/extensions
+
+      - F:\GitRepos\Rust\autalon-transpiler-wasm\:/workspaces/autalon_generator_rust/:ro
     environment:
       - TZ=
     entrypoint: zsh -c "while sleep 1000; do :; done"

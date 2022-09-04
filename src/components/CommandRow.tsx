@@ -1,44 +1,67 @@
 import {
   FormControl,
+  IconButton,
   InputLabel,
   ListItem,
+  ListItemButton,
   MenuItem,
+  Radio,
   Select,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import React from "react";
 
-import FnList from "../BuiltinFunctionList";
+import { getFunctionList } from "../BuiltinFunctionList";
 
 type CommandRowProps = {
-  OnChange: (fn: FnList) => FnList;
+  rowId: number;
+  radioSelected: boolean;
+  functionValue: String;
+
+  OnFunctionChange: (fnName: String) => void;
+  OnRadioSelect: (id: number) => void;
+  OnDelete: () => void;
 };
 
 export default function CommandRow(prop: CommandRowProps) {
-  const [operation, setOperation] = React.useState(FnList.ClickElementByText);
+  let functionList = getFunctionList();
+
+  const [func, setFunc] = React.useState(functionList[0]);
 
   const handleChange = (event: any) => {
-    console.log(event.target.value);
-    setOperation(event.target.value);
+    prop.OnFunctionChange(event.target.value);
+    // setFunc(event.target.value);
+  };
+
+  const handleRadioChange = (event: any) => {
+    prop.OnRadioSelect(event.target.value);
   };
 
   return (
     <ListItem>
+      <Radio
+        checked={prop.radioSelected}
+        onChange={handleRadioChange}
+        value={prop.rowId}
+        name="radio-buttons"
+      />
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-standard-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-standard-label">Command</InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
-          value={operation}
+          value={prop.functionValue}
           onChange={handleChange}
-          label="Agea"
+          label="Command"
         >
-          {Object.keys(FnList)
-            .filter((key: any) => !isNaN(Number(FnList[key])))
-            .map((x) => (
-              <MenuItem value={x}>{x}</MenuItem>
-            ))}
+          {functionList.map((x) => (
+            <MenuItem value={x}>{x}</MenuItem>
+          ))}
         </Select>
       </FormControl>
+      <IconButton onClick={prop.OnDelete} edge="end" aria-label="delete">
+        <DeleteIcon />
+      </IconButton>
     </ListItem>
   );
 }

@@ -11,6 +11,14 @@
 			"VARIANT": "16-bullseye"
 		}
 	},
+	"mounts": [
+		"source=vscode-extensions,target=/node/.vscode-server/extensions,type=volume",
+		// And/or for VS Code Insiders
+		"source=vscode-extensions-insiders,target=/node/.vscode-server-insiders/extensions,type=volume",
+		"source=F:\\GitRepos\\Rust\\autalon-transpiler-wasm,target=/workspaces/autalon_generator_rust,readonly,type=bind"
+	],
+	// "dockerComposeFile": "docker-compose.yml",
+	// "service": "vscode",
 	// Configure tool-specific properties.
 	"customizations": {
 		// Configure properties specific to VS Code.
