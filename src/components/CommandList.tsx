@@ -32,14 +32,15 @@ export default function CommandList(props: any) {
   const currentRowIndex = useStore((state) => state.currentRowIndex);
   const setCurrentRowIndex = useStore((state) => state.setCurrentRowIndex);
 
-  const handleRadioChange = (id) => setCurrentRowIndex(Number.parseInt(id));
+  const handleRadioChange = (id: any) =>
+    setCurrentRowIndex(Number.parseInt(id));
 
-  const handleFnChange = (idx, fn) =>
+  const handleFnChange = (idx: any, fn: any) =>
     updateCommand(idx, new FunctionValue(fn, []));
 
   const handleAddCommand = () =>
     addCommand(new FunctionValue("NavigateToUrl", ["http://www.google.com"]));
-  const handleRemoveCommand = (idx) => removeCommand(idx);
+  const handleRemoveCommand = (idx: any) => removeCommand(idx);
 
   return (
     <Box sx={{ height: "80vh", overflowY: "auto" }}>
