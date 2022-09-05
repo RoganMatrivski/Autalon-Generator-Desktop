@@ -21,6 +21,7 @@ type CommandRowProps = {
 };
 import CommandRow from "./CommandRow";
 import { useStore } from "../stores";
+import { Box } from "@mui/system";
 
 export default function CommandList(props: any) {
   const commandList = useStore((state) => state.instructionList);
@@ -41,24 +42,26 @@ export default function CommandList(props: any) {
   const handleRemoveCommand = (idx) => removeCommand(idx);
 
   return (
-    <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-      {commandList.map((x, i) => (
-        <CommandRow
+    <Box sx={{ height: "80vh", overflowY: "auto" }}>
+      <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+        {commandList.map((x, i) => (
+          <CommandRow
+            key={Math.floor(Math.random() * 100000)}
+            functionValue={x.name}
+            OnFunctionChange={(fn) => handleFnChange(i, fn)}
+            OnRadioSelect={handleRadioChange}
+            OnDelete={() => handleRemoveCommand(i)}
+            radioSelected={currentRowIndex == i}
+            rowId={i}
+          />
+        ))}
+        <ListItemButton
           key={Math.floor(Math.random() * 100000)}
-          functionValue={x.name}
-          OnFunctionChange={(fn) => handleFnChange(i, fn)}
-          OnRadioSelect={handleRadioChange}
-          OnDelete={() => handleRemoveCommand(i)}
-          radioSelected={currentRowIndex == i}
-          rowId={i}
-        />
-      ))}
-      <ListItemButton
-        key={Math.floor(Math.random() * 100000)}
-        onClick={handleAddCommand}
-      >
-        <ListItemText primary="Add new command" />
-      </ListItemButton>
-    </List>
+          onClick={handleAddCommand}
+        >
+          <ListItemText primary="Add new command" />
+        </ListItemButton>
+      </List>
+    </Box>
   );
 }
