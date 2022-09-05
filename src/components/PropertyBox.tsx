@@ -20,25 +20,21 @@ import {
 import funcMetadata from "../FunctionMetadata.json";
 import { useStore } from "../stores";
 
-type PropertyProps = {
-  rowId: number;
-};
+// const ControllerString = ({ control, transform, name, defaultValue }) => (
+//   <Controller
+//     defaultValue={defaultValue}
+//     control={control}
+//     name={name}
+//     render={({ field }) => (
+//       <input
+//         onChange={(e) => field.onChange(transform.output(e))}
+//         value={transform.input(field.value)}
+//       />
+//     )}
+//   />
+// );
 
-const ControllerString = ({ control, transform, name, defaultValue }) => (
-  <Controller
-    defaultValue={defaultValue}
-    control={control}
-    name={name}
-    render={({ field }) => (
-      <input
-        onChange={(e) => field.onChange(transform.output(e))}
-        value={transform.input(field.value)}
-      />
-    )}
-  />
-);
-
-export default function PropertyBox(prop: PropertyProps) {
+export default function PropertyBox() {
   const commandList = useStore((state) => state.instructionList);
   const updateCommand = useStore((state) => state.updateInstruction);
   const currentRow = useStore((state) => state.currentRowInstruction);
@@ -53,8 +49,8 @@ export default function PropertyBox(prop: PropertyProps) {
     },
   ]);
 
-  const onSubmit = ({ args }) => {
-    let mappedArgs = args.map((x, index) => x.value);
+  const onSubmit = ({ args }: any) => {
+    let mappedArgs = args.map((x: any, index: any) => x.value);
 
     const newFnValue = new FunctionValue(currentRow?.name, mappedArgs);
 
@@ -88,7 +84,7 @@ export default function PropertyBox(prop: PropertyProps) {
 
     const funcData = funcMetadata.find((x) => x.name == currentRow?.name);
     const funcArgs = funcData?.args;
-    setArgsMetadata(funcArgs);
+    setArgsMetadata(funcArgs!);
 
     const argValues =
       currentRow?.argValue.length == 0
