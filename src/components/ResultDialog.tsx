@@ -53,7 +53,12 @@ export default function ResultDialog(props: ResultDialogProps) {
   }, [props.open]);
 
   return (
-    <Dialog open={props.open} onClose={props.handleClose}>
+    <Dialog
+      open={props.open}
+      onClose={props.handleClose}
+      fullWidth
+      maxWidth="lg"
+    >
       <DialogTitle>Result Script</DialogTitle>
       {/* <Code language="groovy">{stringifiedCommandList}</Code> */}
       <DialogContent>
