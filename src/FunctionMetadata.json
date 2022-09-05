@@ -125,6 +125,52 @@
         ]
     },
     {
+        "name": "ClickElementByString",
+        "args": [
+            {
+                "name": "String",
+                "type": 0,
+                "description": "String to find",
+                "defaultValue": ""
+            },
+            {
+                "name": "ByOption",
+                "type": 3,
+                "description": "Attribute to match with the string",
+                "defaultValue": "ByOption.Text"
+            },
+            {
+                "name": "Tag",
+                "type": 0,
+                "description": "Element type to get",
+                "defaultValue": "*"
+            }
+        ]
+    },
+    {
+        "name": "ClickElementByStringExact",
+        "args": [
+            {
+                "name": "String",
+                "type": 0,
+                "description": "String to find",
+                "defaultValue": ""
+            },
+            {
+                "name": "ByOption",
+                "type": 3,
+                "description": "Attribute to match with the string",
+                "defaultValue": "ByOption.Text"
+            },
+            {
+                "name": "Tag",
+                "type": 0,
+                "description": "Element type to get",
+                "defaultValue": "*"
+            }
+        ]
+    },
+    {
         "name": "SendTextToElementByText",
         "args": [
             {
