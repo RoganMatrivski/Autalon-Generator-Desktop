@@ -67,6 +67,14 @@ export default function ResultDialog(props: ResultDialogProps) {
         </SyntaxHighlighter>
       </DialogContent>
       <DialogActions>
+        <CopyToClipboard
+          text={JSON.stringify(commandList)}
+          onCopy={() => alert("Copied JSON")}
+        >
+          <Button variant="outlined" startIcon={<ContentPaste />}>
+            Copy JSON
+          </Button>
+        </CopyToClipboard>
         <CopyToClipboard text={convertedCode} onCopy={() => alert("Copied")}>
           <Button variant="outlined" startIcon={<ContentPaste />}>
             Copy
