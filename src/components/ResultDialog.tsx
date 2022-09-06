@@ -4,6 +4,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  IconButton,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useStore } from "../stores";
@@ -16,7 +17,7 @@ import { transpile_groovy } from "@robinmauritz/autalon-transpiler";
 
 import funcMetadata from "../FunctionMetadata.json";
 import { ArgType } from "../BuiltinFunctionList";
-import { ContentPaste } from "@mui/icons-material";
+import { Close, ContentPaste } from "@mui/icons-material";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
@@ -59,7 +60,24 @@ export default function ResultDialog(props: ResultDialogProps) {
       fullWidth
       maxWidth="lg"
     >
-      <DialogTitle>Result Script</DialogTitle>
+      <DialogTitle>
+        <span>Result Script</span>
+
+        {props.handleClose ? (
+          <IconButton
+            aria-label="close"
+            onClick={props.handleClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <Close />
+          </IconButton>
+        ) : null}
+      </DialogTitle>
       {/* <Code language="groovy">{stringifiedCommandList}</Code> */}
       <DialogContent>
         <SyntaxHighlighter language="groovy" style={docco}>
