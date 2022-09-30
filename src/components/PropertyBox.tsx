@@ -17,6 +17,8 @@ import { useEffect, useState } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import {
   ArgType,
+  FunctionMetadata,
+  FunctionMetadataArg,
   FunctionValue,
   getFunctionList,
   mappedFnList,
@@ -43,7 +45,7 @@ export default function PropertyBox() {
   const currentRow = useStore((state) => state.currentRowInstruction);
   const currentRowIndex = useStore((state) => state.currentRowIndex);
 
-  const [argsMetadata, setArgsMetadata] = useState([
+  const [argsMetadata, setArgsMetadata] = useState<FunctionMetadataArg[]>([
     {
       argType: ArgType.String,
       displayName: "",

@@ -15,7 +15,11 @@ import docco from "react-syntax-highlighter/dist/esm/styles/hljs/docco";
 
 import { transpile_groovy } from "@robinmauritz/autalon-transpiler";
 
-import { ArgType, mappedFnList } from "../BuiltinFunctionList";
+import {
+  ArgType,
+  FunctionMetadata,
+  mappedFnList,
+} from "../BuiltinFunctionList";
 import { Close, ContentPaste } from "@mui/icons-material";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -35,7 +39,9 @@ export default function ResultDialog(props: ResultDialogProps) {
 
   useEffect(() => {
     let stringifiedFuncs = commandList.map((x) => {
-      const argsMetadata = mappedFnList().find((y) => y.name == x.name)?.args!;
+      const argsMetadata = mappedFnList().find(
+        (y: FunctionMetadata) => y.name == x.name
+      )?.args!;
       const preprocessedValue = x.argValue.map((x, i) =>
         argsMetadata[i].argType == ArgType.String ? `"${x}"` : x
       );

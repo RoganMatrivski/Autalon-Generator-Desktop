@@ -1,4 +1,3 @@
-import list from "./FunctionMetadata2.json";
 import { get_fn_metadata } from "@robinmauritz/autalon-transpiler";
 
 enum ArgType {
@@ -6,6 +5,36 @@ enum ArgType {
   Number,
   Boolean,
   ByOption,
+}
+
+export interface SourceFunctionMetadata {
+  name: string;
+  displayName: string;
+  description: string;
+  targetUi: string;
+  args: {
+    displayName: string;
+    description: string;
+    argType: string;
+    defaultValue: string;
+  }[];
+  returnType: string;
+}
+
+export interface FunctionMetadataArg {
+  displayName: string;
+  description: string;
+  argType: ArgType;
+  defaultValue: string;
+}
+
+export interface FunctionMetadata {
+  name: string;
+  displayName: string;
+  description: string;
+  targetUi: string;
+  args: FunctionMetadataArg[];
+  returnType: string;
 }
 
 class FunctionInfoArg {
@@ -47,37 +76,6 @@ class FunctionValue {
   }
 }
 
-enum BuiltinFunctions {
-  NavigateToUrl,
-  GetElementByText,
-  // GetElementByTextExact,
-  // GetElementByString,
-  // GetElementByStringExact,
-  // ClickElementByText,
-  // ClickElementByTextExact,
-  // ClickElementByString,
-  // ClickElementByStringExact,
-  // SendTextToElementByText,
-  // SendTextToElementByTextExact,
-  // SendTextToElementByString,
-  // SendTextToElementByStringExact,
-  // GetInputFromLabel,
-  // GetIFrameFromLabel,
-  // GetWindowFromLabel,
-  // GetGroupFromLabel,
-  // InputDateByLabelExact,
-  // InputHtmlByLabelExact,
-  // InputNumberTextboxByLabelExact,
-  // InputTextboxByLabelExact,
-  // InputDropdownUsingTextByLabelExact,
-  // InputDropdownUsingIndexByLabelExact,
-  // InputRadioUsingTextByLabelExact,
-  // InputRadioUsingIndexByLabelExact,
-  // GetAndSwitchToAnyIFrame,
-  // GetAndSwitchToParentIFrame,
-  // GetAndSwitchToRootIFrame,
-}
-
 // This is a stopgap solution
 // TODO: Match argtype from this and transpiler
 const ArgTypeStrtoEnum = (str: String) => {
@@ -88,23 +86,26 @@ const ArgTypeStrtoEnum = (str: String) => {
   return ArgType[str as keyof typeof ArgType];
 };
 
-const mappedFnList = () =>
-  JSON.parse(get_fn_metadata()).map((x) => ({
+const mappedFnList = (): FunctionMetadata[] =>
+  JSON.parse(get_fn_metadata()).map((x: SourceFunctionMetadata) => ({
     ...x,
     args: x.args.map((arg) => ({
       ...arg,
       argType: ArgTypeStrtoEnum(arg.argType),
     })),
   }));
+
 const getFunctionList = () =>
-  mappedFnList().map((x) => [x.name, x.displayName]);
+  mappedFnList().map((x: FunctionMetadata) => [x.name, x.displayName]);
+
 const getFunctionListByTargetUI = (target: String) =>
   mappedFnList()
-    .filter((x) => x.targetUi == target || x.targetUi == "Any")
-    .map((x) => [x.name, x.displayName]);
+    .filter(
+      (x: FunctionMetadata) => x.targetUi == target || x.targetUi == "Any"
+    )
+    .map((x: FunctionMetadata) => [x.name, x.displayName]);
 
 export {
-  BuiltinFunctions,
   mappedFnList,
   getFunctionList,
   getFunctionListByTargetUI,
