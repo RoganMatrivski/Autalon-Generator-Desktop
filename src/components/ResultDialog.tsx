@@ -20,7 +20,7 @@ import {
   FunctionMetadata,
   mappedFnList,
 } from "../BuiltinFunctionList";
-import { Close, ContentPaste } from "@mui/icons-material";
+import { Close, ContentPaste, Launch } from "@mui/icons-material";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
@@ -90,6 +90,15 @@ export default function ResultDialog(props: ResultDialogProps) {
         </SyntaxHighlighter>
       </DialogContent>
       <DialogActions>
+        <Button
+          variant="outlined"
+          startIcon={<Launch />}
+          href="https://github.com/RoganMatrivski/Autalon-Generator/blob/master/docs/USAGE.md"
+          target="_blank"
+          sx={{ mx: 2 }}
+        >
+          How to use
+        </Button>
         <CopyToClipboard text={convertedCode} onCopy={() => alert("Copied")}>
           <Button variant="outlined" startIcon={<ContentPaste />}>
             Copy
