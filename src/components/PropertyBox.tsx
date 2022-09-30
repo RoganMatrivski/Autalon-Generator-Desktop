@@ -2,13 +2,16 @@ import { DevTool } from "@hookform/devtools";
 import {
   Box,
   Button,
+  Checkbox,
   FormControl,
+  FormControlLabel,
   FormHelperText,
   InputLabel,
   MenuItem,
   Select,
   Stack,
   TextField,
+  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
@@ -16,8 +19,8 @@ import {
   ArgType,
   FunctionValue,
   getFunctionList,
+  mappedFnList,
 } from "../BuiltinFunctionList";
-import funcMetadata from "../FunctionMetadata.json";
 import { useStore } from "../stores";
 
 // const ControllerString = ({ control, transform, name, defaultValue }) => (
@@ -42,12 +45,20 @@ export default function PropertyBox() {
 
   const [argsMetadata, setArgsMetadata] = useState([
     {
-      name: "",
-      type: 0,
+      argType: ArgType.String,
+      displayName: "",
       description: "",
       defaultValue: "",
     },
   ]);
+
+  const [funcMetadata, setFuncMetadata] = useState({
+    name: "",
+    displayName: "",
+    description: "",
+    targetUi: "",
+    returnType: "",
+  });
 
   const onSubmit = ({ args }: any) => {
     let mappedArgs = args.map((x: any, index: any) => x.value);
@@ -62,7 +73,7 @@ export default function PropertyBox() {
     control,
     handleSubmit,
     reset,
-    formState: { isDirty },
+    formState: { isDirty, isValid },
     trigger,
     setError,
     getValues,
@@ -74,7 +85,7 @@ export default function PropertyBox() {
   });
 
   useEffect(() => {
-    reset();
+    // reset();
     remove();
 
     // console.log(currentRow?.argValue);
@@ -82,18 +93,19 @@ export default function PropertyBox() {
     // console.log("New row change", currentRow);
     if (currentRow === null) return;
 
-    const funcData = funcMetadata.find((x) => x.name == currentRow?.name);
+    const funcData = mappedFnList().find((x) => x.name == currentRow?.name);
     const funcArgs = funcData?.args;
     setArgsMetadata(funcArgs!);
+    setFuncMetadata(funcData!);
 
     const argValues =
       currentRow?.argValue.length == 0
         ? funcArgs?.map((x) => x.defaultValue)
         : currentRow?.argValue;
 
-    // console.log(currentRow?.argValue, argValues);
+    reset({ args: argValues?.map((x) => ({ value: x }))! });
 
-    replace(argValues?.map((x) => ({ value: x }))!);
+    console.log(isValid);
   }, [currentRow]);
 
   return (
@@ -105,53 +117,95 @@ export default function PropertyBox() {
         pb: "50px",
       }}
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack spacing={2}>
-          {fields.map((item, index) => {
-            const argMetadata = argsMetadata[index];
-            switch (argMetadata.type) {
-              case ArgType.ByOption:
-                return (
-                  <Controller
-                    control={control}
-                    name={`args.${index}.value`}
-                    render={({ field }) => (
-                      <FormControl fullWidth>
-                        <InputLabel>{argMetadata.name}</InputLabel>
-                        <Select {...field} label={argMetadata.name}>
-                          <MenuItem value={"ByOption.ID"}>ID</MenuItem>
-                          <MenuItem value={"ByOption.Class"}>Class</MenuItem>
-                          <MenuItem value={"ByOption.Text"}>Text</MenuItem>
-                          <MenuItem value={"ByOption.Name"}>Name</MenuItem>
-                        </Select>
-                        <FormHelperText>
-                          {argMetadata.description}
-                        </FormHelperText>
-                      </FormControl>
-                    )}
-                  />
-                );
+      {currentRow != null && (
+        <>
+          <Typography align="left" variant="h4">
+            {funcMetadata.displayName}
+          </Typography>
+          <Typography align="left" variant="subtitle1">
+            {funcMetadata.description}
+          </Typography>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Stack spacing={2}>
+              {fields.map((item, index) => {
+                const argMetadata = argsMetadata[index];
+                switch (argMetadata.argType) {
+                  case ArgType.ByOption:
+                    return (
+                      <Controller
+                        key={Math.floor(Math.random() * 100000)}
+                        control={control}
+                        name={`args.${index}.value`}
+                        render={({ field }) => (
+                          <FormControl fullWidth>
+                            <InputLabel>{argMetadata.displayName}</InputLabel>
+                            <Select {...field} label={argMetadata.displayName}>
+                              <MenuItem value={"ByOption.ID"}>ID</MenuItem>
+                              <MenuItem value={"ByOption.Class"}>
+                                Class
+                              </MenuItem>
+                              <MenuItem value={"ByOption.Text"}>Text</MenuItem>
+                              <MenuItem value={"ByOption.Name"}>Name</MenuItem>
+                            </Select>
+                            <FormHelperText>
+                              {argMetadata.description}
+                            </FormHelperText>
+                          </FormControl>
+                        )}
+                      />
+                    );
+                  case ArgType.Boolean:
+                    return (
+                      <Controller
+                        control={control}
+                        name={`args.${index}.value`}
+                        render={({ field }) => (
+                          <FormControlLabel
+                            control={<Checkbox checked={field.value} />}
+                            {...field}
+                            label={argMetadata.displayName}
+                          />
+                        )}
+                      />
+                    );
 
-              default:
-                return (
-                  <TextField
-                    {...register(`args.${index}.value`)}
-                    label={argsMetadata[index].name}
-                    helperText={argsMetadata[index].description}
-                  />
-                );
-            }
-          })}
-        </Stack>
-        <Button
-          type="submit"
-          variant="contained"
-          sx={{ position: "absolute", bottom: 15, right: 15 }}
-        >
-          Save
-        </Button>
-        <DevTool control={control} />
-      </form>
+                  default:
+                    return (
+                      <Controller
+                        control={control}
+                        name={`args.${index}.value`}
+                        rules={{
+                          required: `${argMetadata.displayName} is required`,
+                        }}
+                        render={({ field, fieldState: { error } }) => (
+                          <TextField
+                            {...field}
+                            error={!!error}
+                            label={argMetadata.displayName}
+                            helperText={
+                              error ? error?.message : argMetadata.description
+                            }
+                          />
+                        )}
+                      />
+                    );
+                }
+              })}
+            </Stack>
+            {fields.length > 0 && (
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={!isDirty}
+                sx={{ position: "absolute", bottom: 15, left: 15 }}
+              >
+                Save
+              </Button>
+            )}
+            <DevTool control={control} />
+          </form>
+        </>
+      )}
     </Box>
   );
 }

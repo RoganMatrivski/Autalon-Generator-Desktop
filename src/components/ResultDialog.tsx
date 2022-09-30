@@ -15,8 +15,7 @@ import docco from "react-syntax-highlighter/dist/esm/styles/hljs/docco";
 
 import { transpile_groovy } from "@robinmauritz/autalon-transpiler";
 
-import funcMetadata from "../FunctionMetadata.json";
-import { ArgType } from "../BuiltinFunctionList";
+import { ArgType, mappedFnList } from "../BuiltinFunctionList";
 import { Close, ContentPaste } from "@mui/icons-material";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -36,9 +35,9 @@ export default function ResultDialog(props: ResultDialogProps) {
 
   useEffect(() => {
     let stringifiedFuncs = commandList.map((x) => {
-      const argsMetadata = funcMetadata.find((y) => y.name == x.name)?.args!;
+      const argsMetadata = mappedFnList().find((y) => y.name == x.name)?.args!;
       const preprocessedValue = x.argValue.map((x, i) =>
-        argsMetadata[i].type == ArgType.String ? `"${x}"` : x
+        argsMetadata[i].argType == ArgType.String ? `"${x}"` : x
       );
       return `#:${x.name}(${preprocessedValue.join(", ")});`;
     });
@@ -85,14 +84,6 @@ export default function ResultDialog(props: ResultDialogProps) {
         </SyntaxHighlighter>
       </DialogContent>
       <DialogActions>
-        <CopyToClipboard
-          text={JSON.stringify(commandList)}
-          onCopy={() => alert("Copied JSON")}
-        >
-          <Button variant="outlined" startIcon={<ContentPaste />}>
-            Copy JSON
-          </Button>
-        </CopyToClipboard>
         <CopyToClipboard text={convertedCode} onCopy={() => alert("Copied")}>
           <Button variant="outlined" startIcon={<ContentPaste />}>
             Copy

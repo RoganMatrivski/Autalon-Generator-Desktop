@@ -1,4 +1,5 @@
-import list from "./FunctionMetadata.json";
+import list from "./FunctionMetadata2.json";
+import { get_fn_metadata } from "@robinmauritz/autalon-transpiler";
 
 enum ArgType {
   String,
@@ -77,6 +78,36 @@ enum BuiltinFunctions {
   // GetAndSwitchToRootIFrame,
 }
 
-const getFunctionList = () => list.map((x) => x.name);
+// This is a stopgap solution
+// TODO: Match argtype from this and transpiler
+const ArgTypeStrtoEnum = (str: String) => {
+  if (str == "string") str = "String";
+  if (str == "number") str = "Number";
+  if (str == "bool") str = "Boolean";
 
-export { BuiltinFunctions, getFunctionList, FunctionValue, ArgType };
+  return ArgType[str as keyof typeof ArgType];
+};
+
+const mappedFnList = () =>
+  JSON.parse(get_fn_metadata()).map((x) => ({
+    ...x,
+    args: x.args.map((arg) => ({
+      ...arg,
+      argType: ArgTypeStrtoEnum(arg.argType),
+    })),
+  }));
+const getFunctionList = () =>
+  mappedFnList().map((x) => [x.name, x.displayName]);
+const getFunctionListByTargetUI = (target: String) =>
+  mappedFnList()
+    .filter((x) => x.targetUi == target || x.targetUi == "Any")
+    .map((x) => [x.name, x.displayName]);
+
+export {
+  BuiltinFunctions,
+  mappedFnList,
+  getFunctionList,
+  getFunctionListByTargetUI,
+  FunctionValue,
+  ArgType,
+};

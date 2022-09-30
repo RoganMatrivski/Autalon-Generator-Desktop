@@ -28,6 +28,7 @@ export default function CommandList(props: any) {
   const addCommand = useStore((state) => state.addInstruction);
   const removeCommand = useStore((state) => state.removeInstruction);
   const updateCommand = useStore((state) => state.updateInstruction);
+  const clearCommand = useStore((state) => state.clearInstruction);
 
   const currentRowIndex = useStore((state) => state.currentRowIndex);
   const setCurrentRowIndex = useStore((state) => state.setCurrentRowIndex);
@@ -42,8 +43,34 @@ export default function CommandList(props: any) {
     addCommand(new FunctionValue("NavigateToUrl", ["http://www.google.com"]));
   const handleRemoveCommand = (idx: any) => removeCommand(idx);
 
+  const [targetUI, SetTargetUI] = useState("Ext");
+  const handleTargetUIChange = (event: any) => {
+    SetTargetUI(event.target.value);
+
+    clearCommand();
+  };
+
   return (
     <Box sx={{ height: "80vh", overflowY: "auto" }}>
+      <FormControl
+        variant="standard"
+        sx={{ m: 1, minWidth: 120, width: 0.6, mx: 10 }}
+      >
+        <InputLabel id="demo-simple-select-standard-label">
+          UI Framework
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={targetUI}
+          onChange={handleTargetUIChange}
+          label="Command"
+        >
+          {["Ext", "MUI"].map((x) => (
+            <MenuItem value={x}>{x}</MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
         {commandList.map((x, i) => (
           <CommandRow
@@ -54,6 +81,7 @@ export default function CommandList(props: any) {
             OnDelete={() => handleRemoveCommand(i)}
             radioSelected={currentRowIndex == i}
             rowId={i}
+            targetUI={targetUI}
           />
         ))}
         <ListItemButton

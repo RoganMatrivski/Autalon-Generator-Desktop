@@ -6,6 +6,7 @@ interface ProgramState {
   addInstruction: (instruction: FunctionValue) => void;
   removeInstruction: (index: number) => void;
   updateInstruction: (index: number, newInstruction: FunctionValue) => void;
+  clearInstruction: () => void;
 
   currentRowIndex: number;
   setCurrentRowIndex: (index: number) => void;
@@ -44,6 +45,10 @@ const useStore = create<ProgramState>()((set, get) => ({
         ...state.instructionList.slice(idx + 1),
       ],
     }));
+    get().updateCurrentRowInstruction();
+  },
+  clearInstruction: () => {
+    set(() => ({ instructionList: [] }));
     get().updateCurrentRowInstruction();
   },
 

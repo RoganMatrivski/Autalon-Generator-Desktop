@@ -9,14 +9,18 @@ import {
   Select,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import React from "react";
+import React, { useEffect } from "react";
 
-import { getFunctionList } from "../BuiltinFunctionList";
+import {
+  getFunctionList,
+  getFunctionListByTargetUI,
+} from "../BuiltinFunctionList";
 
 type CommandRowProps = {
   rowId: number;
   radioSelected: boolean;
   functionValue: String;
+  targetUI: String | null;
 
   OnFunctionChange: (fnName: String) => void;
   OnRadioSelect: (id: number) => void;
@@ -24,7 +28,9 @@ type CommandRowProps = {
 };
 
 export default function CommandRow(prop: CommandRowProps) {
-  let functionList = getFunctionList();
+  let functionList = getFunctionListByTargetUI(prop.targetUI || "Ext");
+
+  // useEffect(() => console.log(functionList), [functionList]);
 
   const [func, setFunc] = React.useState(functionList[0]);
 
@@ -45,7 +51,7 @@ export default function CommandRow(prop: CommandRowProps) {
         value={prop.rowId}
         name="radio-buttons"
       />
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+      <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: 1 }}>
         <InputLabel id="demo-simple-select-standard-label">Command</InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
@@ -54,8 +60,8 @@ export default function CommandRow(prop: CommandRowProps) {
           onChange={handleChange}
           label="Command"
         >
-          {functionList.map((x) => (
-            <MenuItem value={x}>{x}</MenuItem>
+          {functionList.map(([name, displayName]) => (
+            <MenuItem value={name}>{displayName}</MenuItem>
           ))}
         </Select>
       </FormControl>
