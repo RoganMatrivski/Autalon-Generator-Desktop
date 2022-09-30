@@ -12,7 +12,11 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, { useEffect, useState } from "react";
 
-import { FunctionValue, getFunctionList } from "../BuiltinFunctionList";
+import {
+  FunctionValue,
+  getFunctionList,
+  mappedFnList,
+} from "../BuiltinFunctionList";
 
 type CommandRowProps = {
   OnChange: (fnName: String) => String;
@@ -33,14 +37,31 @@ export default function CommandList(props: any) {
   const currentRowIndex = useStore((state) => state.currentRowIndex);
   const setCurrentRowIndex = useStore((state) => state.setCurrentRowIndex);
 
+  const fnList = mappedFnList();
+
   const handleRadioChange = (id: any) =>
     setCurrentRowIndex(Number.parseInt(id));
 
-  const handleFnChange = (idx: any, fn: any) =>
-    updateCommand(idx, new FunctionValue(fn, []));
+  const handleFnChange = (idx: any, fn: any) => {
+    const funcData = fnList.find((x) => x.name == fn);
+    const funcArgs = funcData?.args;
+
+    updateCommand(
+      idx,
+      new FunctionValue(
+        fn,
+        funcArgs?.map((x) => x.defaultValue)
+      )
+    );
+  };
 
   const handleAddCommand = () =>
-    addCommand(new FunctionValue("NavigateToUrl", ["http://www.google.com"]));
+    addCommand(
+      new FunctionValue(
+        fnList[0].name,
+        fnList[0].args.map((x) => x.defaultValue)
+      )
+    );
   const handleRemoveCommand = (idx: any) => removeCommand(idx);
 
   const [targetUI, SetTargetUI] = useState("Ext");
