@@ -1,30 +1,29 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.195.0/containers/javascript-node
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
 {
-	"name": "Node.js",
-	"build": {
-		"dockerfile": "Dockerfile",
-		// Update 'VARIANT' to pick a Node version: 16, 14, 12.
-		// Append -bullseye or -buster to pin to an OS version.
-		// Use -bullseye variants on local arm64/Apple Silicon.
-		"args": {
-			"VARIANT": "16-bullseye"
-		}
+	"name": "Node.js & TypeScript",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:0-18",
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {}
 	},
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
 	"mounts": [
-		"source=vscode-extensions,target=/node/.vscode-server/extensions,type=volume",
-		// And/or for VS Code Insiders
-		"source=vscode-extensions-insiders,target=/node/.vscode-server-insiders/extensions,type=volume",
-		"source=F:\\GitRepos\\Rust\\autalon-transpiler-wasm,target=/workspaces/autalon_generator_rust,readonly,type=bind"
+		{
+			"source": "node_modules",
+			"target": "${localWorkspaceFolder}/node_modules",
+			"type": "volume"
+		}
 	],
-	// "dockerComposeFile": "docker-compose.yml",
-	// "service": "vscode",
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "corepack enable && corepack prepare pnpm@7.25.0 --activate",
 	// Configure tool-specific properties.
 	"customizations": {
 		// Configure properties specific to VS Code.
 		"vscode": {
-			// Set *default* container specific settings.json values on container create.
-			"settings": {},
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
 				"alefragnani.Bookmarks",
@@ -38,15 +37,18 @@
 				"davidanson.vscode-markdownlint",
 				"dbaeumer.vscode-eslint", // ESLint
 				"drKnoxy.eslint-disable-snippets",
+				"dsznajder.es7-react-js-snippets",
 				"eamodio.gitlens", // IDE Git information
 				"eg2.vscode-npm-script", // NPM support for VS code
 				"esbenp.prettier-vscode", // Prettier code formatter
 				"github.vscode-pull-request-github", // Github interaction
 				"Gruntfuggly.todo-tree", // Highlights TODO comments
 				"IBM.output-colorizer", // Colorize your output/test logs
+				"JakeWilson.vscode-cdnjs", // Search and embed libraries from cdnjs.com
 				"jpoissonnier.vscode-styled-components", // Styled components
 				"ms-azuretools.vscode-docker", // Docker integration and linting
 				"oderwat.indent-rainbow",
+				"planbcoding.vscode-react-refactor",
 				"quicktype.quicktype",
 				"Rubymaniac.vscode-paste-and-indent",
 				"shardulm94.trailing-spaces", // Show trailing spaces
@@ -58,21 +60,6 @@
 			]
 		}
 	},
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [3000],
-	// Use 'portsAttributes' to set default properties for specific forwarded ports. More info: https://code.visualstudio.com/docs/remote/devcontainerjson-reference.
-	"portsAttributes": {
-		"3000": {
-			"label": "Hello Remote World",
-			"onAutoForward": "notify"
-		}
-	},
-	// Use 'otherPortsAttributes' to configure any ports that aren't configured using 'portsAttributes'.
-	// "otherPortsAttributes": {
-	// 		"onAutoForward": "silent"
-	// },
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "yarn install",
-	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "node"
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
 }
