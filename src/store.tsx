@@ -1,4 +1,6 @@
 import { create } from "zustand";
+import { temporal } from "zundo";
+
 import product from "immer";
 import { arrayMoveMutable } from "array-move";
 
@@ -18,6 +20,7 @@ interface GlobalState {
 
   targetUI: TargetUI;
   setTargetUI: (target: TargetUI) => void;
+  setTargetUIClearInstruction: (target: TargetUI) => void;
 
   // currentRowIndex: number;
   // setCurrentRowIndex: (index: number) => void;
@@ -25,87 +28,98 @@ interface GlobalState {
   // updateCurrentRowInstruction: () => void;
 }
 
-const store = create<GlobalState>()((set, get) => ({
-  instructionList: [],
+const store = create<GlobalState>()(
+  temporal(set => ({
+    instructionList: [],
 
-  addInstruction: (instr: FunctionValue) =>
-    set(
-      product((draft: GlobalState) => {
-        draft.instructionList.push(instr);
-      })
-    ),
+    addInstruction: (instr: FunctionValue) =>
+      set(
+        product((draft: GlobalState) => {
+          draft.instructionList.push(instr);
+        })
+      ),
 
-  removeInstruction: (index: number) =>
-    set(
-      product((draft: GlobalState) => {
-        draft.instructionList.splice(index, 1);
-      })
-    ),
-
-  updateInstruction: (index: number, instr: FunctionValue) =>
-    set(
-      product((draft: GlobalState) => {
-        if (instr.name == null) {
+    removeInstruction: (index: number) =>
+      set(
+        product((draft: GlobalState) => {
           draft.instructionList.splice(index, 1);
+        })
+      ),
 
-          return;
-        }
+    updateInstruction: (index: number, instr: FunctionValue) =>
+      set(
+        product((draft: GlobalState) => {
+          if (instr.name == null) {
+            draft.instructionList.splice(index, 1);
 
-        draft.instructionList[index] = instr;
-      })
-    ),
+            return;
+          }
 
-  moveInstruction: (index: number, offset: number) =>
-    set(
-      product((draft: GlobalState) => {
-        const newIndex = index + offset;
-        if (newIndex < 0 || newIndex >= draft.instructionList.length) {
-          return;
-        }
+          draft.instructionList[index] = instr;
+        })
+      ),
 
-        arrayMoveMutable(draft.instructionList, index, newIndex);
-      })
-    ),
+    moveInstruction: (index: number, offset: number) =>
+      set(
+        product((draft: GlobalState) => {
+          const newIndex = index + offset;
+          if (newIndex < 0 || newIndex >= draft.instructionList.length) {
+            return;
+          }
 
-  moveInstructionAbsolute: (index: number, newIndex: number) =>
-    set(
-      product((draft: GlobalState) => {
-        if (newIndex < 0 || newIndex >= draft.instructionList.length) {
-          return;
-        }
+          arrayMoveMutable(draft.instructionList, index, newIndex);
+        })
+      ),
 
-        arrayMoveMutable(draft.instructionList, index, newIndex);
-      })
-    ),
+    moveInstructionAbsolute: (index: number, newIndex: number) =>
+      set(
+        product((draft: GlobalState) => {
+          if (newIndex < 0 || newIndex >= draft.instructionList.length) {
+            return;
+          }
 
-  removeNullInstructions: () =>
-    set(
-      product((draft: GlobalState) => {
-        draft.instructionList = draft.instructionList.filter(
-          x => x.name != null
-        );
-      })
-    ),
+          arrayMoveMutable(draft.instructionList, index, newIndex);
+        })
+      ),
 
-  clearInstruction: () => {
-    set(
-      product((draft: GlobalState) => {
-        draft.instructionList = [];
-      })
-    );
-    // get().updateCurrentRowInstruction();
-  },
+    removeNullInstructions: () =>
+      set(
+        product((draft: GlobalState) => {
+          draft.instructionList = draft.instructionList.filter(
+            x => x.name != null
+          );
+        })
+      ),
 
-  targetUI: TargetUI.ExtUI,
+    clearInstruction: () => {
+      set(
+        product((draft: GlobalState) => {
+          draft.instructionList = [];
+        })
+      );
+      // get().updateCurrentRowInstruction();
+    },
 
-  setTargetUI: target => {
-    set(
-      product((draft: GlobalState) => {
-        draft.targetUI = target;
-      })
-    );
-  },
-}));
+    targetUI: TargetUI.ExtUI,
+
+    setTargetUI: target => {
+      set(
+        product((draft: GlobalState) => {
+          draft.targetUI = target;
+        })
+      );
+    },
+
+    setTargetUIClearInstruction: target => {
+      set(
+        product((draft: GlobalState) => {
+          draft.targetUI = target;
+          draft.instructionList = [];
+        })
+      );
+    },
+  }))
+);
 
 export default store;
 

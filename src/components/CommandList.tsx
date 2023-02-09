@@ -7,6 +7,7 @@ import FunctionValue from "../structs/Class/FunctionValue";
 import GetFnListByTargetUI from "../functions/GetFnListByTargetUI";
 import ResultDialog from "./ResultDialog";
 import TargetUiSelector from "./TargetUiSelector";
+import UndoRedoButton from "./UndoRedoButton";
 
 export default function CommandList(props: any) {
   const { instructionList, addInstruction, clearInstruction } = useStore();
@@ -21,6 +22,7 @@ export default function CommandList(props: any) {
         handleClose={() => setShowResultDialog(false)}
       />
       <Stack direction="horizontal" gap={3} className="my-3">
+        <UndoRedoButton />
         <div className="ms-auto" />
         <TargetUiSelector />
       </Stack>

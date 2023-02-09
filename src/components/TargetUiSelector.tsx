@@ -5,8 +5,12 @@ import useStore from "../store";
 import { TargetUI } from "../structs/Interface/TargetUI";
 
 export default function TargetUiSelector() {
-  const { targetUI, setTargetUI, instructionList, clearInstruction } =
-    useStore();
+  const {
+    targetUI,
+    setTargetUIClearInstruction,
+    instructionList,
+    clearInstruction,
+  } = useStore();
 
   const [newTargetUi, setNewTargetUi] = useState(TargetUI.ExtUI);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -15,7 +19,7 @@ export default function TargetUiSelector() {
     const newTarget = event.target.value;
 
     if (instructionList.length == 0) {
-      setTargetUI(newTarget as TargetUI);
+      setTargetUIClearInstruction(newTarget as TargetUI);
       return;
     }
 
@@ -26,8 +30,7 @@ export default function TargetUiSelector() {
   }
 
   function confirmTargetChange() {
-    clearInstruction();
-    setTargetUI(newTargetUi);
+    setTargetUIClearInstruction(newTargetUi);
     setShowConfirmModal(false);
   }
 
