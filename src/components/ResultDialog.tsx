@@ -27,9 +27,7 @@ type ResultDialogProps = {
 export default function ResultDialog(props: ResultDialogProps) {
   const { show, handleClose } = props;
 
-  const instructionList = useStore(
-    (state: { instructionList: any }) => state.instructionList
-  );
+  const { instructionList } = useStore();
 
   const [scriptResult, errorString]: [string, null] | [null, string] =
     useMemo(() => {

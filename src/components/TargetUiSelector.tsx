@@ -5,10 +5,8 @@ import useStore from "../store";
 import { TargetUI } from "../structs/Interface/TargetUI";
 
 export default function TargetUiSelector() {
-  const targetUI = useStore(state => state.targetUI);
-  const instructionList = useStore(state => state.instructionList);
-  const setTargetUI = useStore(state => state.setTargetUI);
-  const clearInstruction = useStore(state => state.clearInstruction);
+  const { targetUI, setTargetUI, instructionList, clearInstruction } =
+    useStore();
 
   const [newTargetUi, setNewTargetUi] = useState(TargetUI.ExtUI);
   const [showConfirmModal, setShowConfirmModal] = useState(false);

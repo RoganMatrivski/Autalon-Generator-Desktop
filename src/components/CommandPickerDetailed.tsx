@@ -24,8 +24,7 @@ type CommandPickerDetailedProps = {
 export default function CommandPickerDetailed(
   props: CommandPickerDetailedProps
 ) {
-  const targetUI = useStore(state => state.targetUI);
-  const updateInstruction = useStore(state => state.updateInstruction);
+  const { targetUI, updateInstruction } = useStore();
 
   const [filterText, setFilterText] = useState("");
   const [selectedInstruction, setSelectedInstruction] = useState<string | null>(

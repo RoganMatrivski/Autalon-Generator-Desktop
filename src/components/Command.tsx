@@ -20,9 +20,7 @@ type CommandArgs = {
 
 export default function Command(props: CommandArgs) {
   // Zustand store init
-  const instructionList = useStore(state => state.instructionList);
-  const moveInstruction = useStore(state => state.moveInstruction);
-  const removeInstruction = useStore(state => state.removeInstruction);
+  const { instructionList, moveInstruction, removeInstruction } = useStore();
 
   // Use state hooks
   const [showArgumentWindow, setShowArgumentWindow] = useState(false);

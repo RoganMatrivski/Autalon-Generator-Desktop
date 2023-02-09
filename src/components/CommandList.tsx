@@ -9,9 +9,7 @@ import ResultDialog from "./ResultDialog";
 import TargetUiSelector from "./TargetUiSelector";
 
 export default function CommandList(props: any) {
-  const instructionList = useStore(state => state.instructionList);
-  const addInstruction = useStore(state => state.addInstruction);
-  const clearInstruction = useStore(state => state.clearInstruction);
+  const { instructionList, addInstruction, clearInstruction } = useStore();
 
   const [showResultDialog, setShowResultDialog] = React.useState(false);
 

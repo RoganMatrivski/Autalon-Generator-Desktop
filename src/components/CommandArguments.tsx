@@ -28,7 +28,7 @@ export default function CommandArguments(props: CommandArgumentProps) {
     []
   );
 
-  const updateInstruction = useStore(state => state.updateInstruction);
+  const { updateInstruction } = useStore();
 
   const metadataArgs = props.instructionMetadata.args;
 

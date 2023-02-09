@@ -14,8 +14,7 @@ type CommandPickerSimpleProps = {
 };
 
 export default function CommandPickerSimple(props: CommandPickerSimpleProps) {
-  const targetUI = useStore(state => state.targetUI);
-  const updateInstruction = useStore(state => state.updateInstruction);
+  const { updateInstruction, targetUI } = useStore();
 
   const [filterText, setFilterText] = useState("");
   const handleClose = () => {

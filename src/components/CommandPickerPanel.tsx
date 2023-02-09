@@ -27,10 +27,8 @@ enum DialogType {
 }
 
 export default function CommandPickerPanel(props: CommandPickerPanelProps) {
-  const updateInstruction = useStore(state => state.updateInstruction);
-  const removeNullInstructions = useStore(
-    state => state.removeNullInstructions
-  );
+  const { updateInstruction, removeNullInstructions } = useStore();
+
   const [filterText, setFilterText] = useState("");
   const [dialogMode, setDialogMode] = useState(DialogType.Simple);
 
