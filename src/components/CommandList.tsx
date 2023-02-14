@@ -8,6 +8,7 @@ import GetFnListByTargetUI from "../functions/GetFnListByTargetUI";
 import ResultDialog from "./ResultDialog";
 import TargetUiSelector from "./TargetUiSelector";
 import UndoRedoButton from "./UndoRedoButton";
+import SaveLoadButton from "./SaveLoadButton";
 
 export default function CommandList(props: any) {
   const { instructionList, addInstruction, clearInstruction } = useStore();
@@ -63,10 +64,9 @@ export default function CommandList(props: any) {
             Clear
           </Button>
         </ButtonGroup>
-        <ButtonGroup>
-          <Button>Save</Button>
-          <Button>Load</Button>
-        </ButtonGroup>
+        <>
+          <SaveLoadButton />
+        </>
         <Button
           disabled={instructionList.length <= 0}
           onClick={() => {

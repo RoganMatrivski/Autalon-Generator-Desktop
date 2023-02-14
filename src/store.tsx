@@ -17,6 +17,7 @@ interface GlobalState {
   moveInstruction: (index: number, offset: number) => void;
   removeNullInstructions: () => void;
   clearInstruction: () => void;
+  setInstruction: (instructionList: Array<FunctionValue>) => void;
 
   targetUI: TargetUI;
   setTargetUI: (target: TargetUI) => void;
@@ -95,6 +96,15 @@ const store = create<GlobalState>()(
       set(
         product((draft: GlobalState) => {
           draft.instructionList = [];
+        })
+      );
+      // get().updateCurrentRowInstruction();
+    },
+
+    setInstruction: (instructionList: Array<FunctionValue>) => {
+      set(
+        product((draft: GlobalState) => {
+          draft.instructionList = instructionList;
         })
       );
       // get().updateCurrentRowInstruction();
