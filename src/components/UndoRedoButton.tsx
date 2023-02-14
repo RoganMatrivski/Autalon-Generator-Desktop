@@ -6,8 +6,6 @@ export default function UndoRedoButton() {
   const canUndo = !!pastStates.length;
   const canRedo = !!futureStates.length;
 
-  console.log(pastStates);
-
   function handleUndo() {
     const prevState = pastStates.at(-1);
 
