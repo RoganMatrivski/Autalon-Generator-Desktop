@@ -27,7 +27,7 @@
     "react-syntax-highlighter": "^15.5.0",
     "strip-ansi": "^7.0.1",
     "use-file-picker": "^1.5.2",
-    "zundo": "^2.0.0-beta.10",
+    "zundo": "^2.0.0-beta.11",
     "zustand": "^4.3.2"
   },
   "devDependencies": {
