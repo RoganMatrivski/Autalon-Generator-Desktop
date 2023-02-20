@@ -8,7 +8,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Root from "src/components/Root";
+import Root from "src/components/Root/index";
 
 const router = createBrowserRouter([
   {

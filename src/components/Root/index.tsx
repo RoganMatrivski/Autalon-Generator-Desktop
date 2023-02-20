@@ -12,12 +12,12 @@ import {
 import useStore from "src/store";
 import FunctionValue from "src/structs/Class/FunctionValue";
 import GetFnListByTargetUI from "src/functions/GetFnListByTargetUI";
-import ResultDialog from "./RootComponents/ResultDialog";
-import TargetUiSelector from "./RootComponents/TargetUiSelector";
-import UndoRedoButton from "./RootComponents/UndoRedoButton";
-import SaveLoadButton from "./RootComponents/SaveLoadButton";
-import ExportProjectPanel from "./RootComponents/ExportProjectPanel";
-import CommandList from "./RootComponents/CommandList";
+import ResultDialog from "./ResultDialog";
+import TargetUiSelector from "./TargetUiSelector";
+import UndoRedoButton from "./UndoRedoButton";
+import SaveLoadButton from "./SaveLoadButton";
+import ExportProjectPanel from "./ExportProjectPanel";
+import CommandList from "./CommandList";
 
 export default function Root(props: any) {
   const { instructionList, addInstruction, clearInstruction } = useStore();
