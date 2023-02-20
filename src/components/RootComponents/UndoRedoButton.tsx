@@ -1,8 +1,10 @@
 import { Button, ButtonGroup } from "react-bootstrap";
-import useTemporalStore from "../temporalStore";
+import useTemporalStore from "src/temporalStore";
 
 export default function UndoRedoButton() {
-  const { undo, redo, pastStates, futureStates } = useTemporalStore(state => state);
+  const { undo, redo, pastStates, futureStates } = useTemporalStore(
+    state => state
+  );
   const canUndo = !!pastStates.length;
   const canRedo = !!futureStates.length;
 

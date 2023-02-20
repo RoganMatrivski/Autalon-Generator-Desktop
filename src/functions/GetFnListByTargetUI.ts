@@ -1,4 +1,4 @@
-import { FunctionMetadata } from "../structs/Interface/FunctionMetadata";
+import { FunctionMetadata } from "src/structs/Interface/FunctionMetadata";
 import mappedFnList from "./mappedFnList";
 
 // TODO: Change these to use object instead of array

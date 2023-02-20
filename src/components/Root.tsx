@@ -1,23 +1,30 @@
 import React from "react";
-import { Button, ButtonGroup, Col, Row, Stack, Table } from "react-bootstrap";
-import Command from "./Command";
+import {
+  Button,
+  ButtonGroup,
+  Col,
+  Container,
+  Row,
+  Stack,
+  Table,
+} from "react-bootstrap";
 
-import useStore from "../store";
-import FunctionValue from "../structs/Class/FunctionValue";
-import GetFnListByTargetUI from "../functions/GetFnListByTargetUI";
-import ResultDialog from "./ResultDialog";
-import TargetUiSelector from "./TargetUiSelector";
-import UndoRedoButton from "./UndoRedoButton";
-import SaveLoadButton from "./SaveLoadButton";
+import useStore from "src/store";
+import FunctionValue from "src/structs/Class/FunctionValue";
+import GetFnListByTargetUI from "src/functions/GetFnListByTargetUI";
+import ResultDialog from "./RootComponents/ResultDialog";
+import TargetUiSelector from "./RootComponents/TargetUiSelector";
+import UndoRedoButton from "./RootComponents/UndoRedoButton";
+import SaveLoadButton from "./RootComponents/SaveLoadButton";
+import ExportProjectPanel from "./RootComponents/ExportProjectPanel";
+import CommandList from "./RootComponents/CommandList";
 
-export default function CommandList(props: any) {
+export default function Root(props: any) {
   const { instructionList, addInstruction, clearInstruction } = useStore();
 
   const [showResultDialog, setShowResultDialog] = React.useState(false);
-
-  const fnList = GetFnListByTargetUI();
   return (
-    <React.Fragment>
+    <Container>
       <ResultDialog
         show={showResultDialog}
         handleClose={() => setShowResultDialog(false)}
@@ -27,24 +34,7 @@ export default function CommandList(props: any) {
         <div className="ms-auto" />
         <TargetUiSelector />
       </Stack>
-      <Table size="sm" bordered>
-        <thead>
-          <tr>
-            <th>Instruction</th>
-            <th>Arguments</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {instructionList.map((x, i) => (
-            <Command
-              key={`${i}_${x.name}_Command`}
-              commandIndex={i}
-              functionValue={x}
-            />
-          ))}
-        </tbody>
-      </Table>
+      {<CommandList />}
       <Stack direction="horizontal" gap={3}>
         <ButtonGroup>
           <Button
@@ -75,7 +65,8 @@ export default function CommandList(props: any) {
         >
           Export
         </Button>
+        <ExportProjectPanel />
       </Stack>
-    </React.Fragment>
+    </Container>
   );
 }

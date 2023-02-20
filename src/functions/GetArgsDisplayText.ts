@@ -1,5 +1,5 @@
-import { ArgType } from "../structs/Interface/Argtype";
-import { FunctionMetadata } from "../structs/Interface/FunctionMetadata";
+import { ArgType } from "src/structs/Interface/Argtype";
+import { FunctionMetadata } from "src/structs/Interface/FunctionMetadata";
 
 export default function GetArgsDisplayText(
   args: string[],

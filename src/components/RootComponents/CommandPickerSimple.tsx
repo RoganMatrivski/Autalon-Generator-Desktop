@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Button, Form, InputGroup, ListGroup, Modal } from "react-bootstrap";
-import GetFnListByTargetUI from "../functions/GetFnListByTargetUI";
-import mappedFnList from "../functions/mappedFnList";
-import useStore from "../store";
-import FunctionValue from "../structs/Class/FunctionValue";
-import { ArgType } from "../structs/Interface/Argtype";
+import GetFnListByTargetUI from "src/functions/GetFnListByTargetUI";
+import mappedFnList from "src/functions/mappedFnList";
+import useStore from "src/store";
+import FunctionValue from "src/structs/Class/FunctionValue";
+import { ArgType } from "src/structs/Interface/Argtype";
 
 type CommandPickerSimpleProps = {
   show: boolean;

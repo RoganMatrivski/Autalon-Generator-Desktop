@@ -2,16 +2,16 @@ import { BsArrowDown, BsArrowUp, BsTrash, BsPencil } from "react-icons/bs";
 import { Button, ButtonGroup } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 
-import GetArgsDisplayText from "../functions/GetArgsDisplayText";
-import mappedFnList from "../functions/mappedFnList";
+import GetArgsDisplayText from "src/functions/GetArgsDisplayText";
+import mappedFnList from "src/functions/mappedFnList";
 
-import FunctionValue from "../structs/Class/FunctionValue";
+import FunctionValue from "src/structs/Class/FunctionValue";
 
 import CommandPickerPanel from "./CommandPickerPanel";
 import ConfirmationButton from "./ConfirmationButton";
 import CommandArguments from "./CommandArguments";
 
-import useStore from "../store";
+import useStore from "src/store";
 
 type CommandArgs = {
   commandIndex: number;

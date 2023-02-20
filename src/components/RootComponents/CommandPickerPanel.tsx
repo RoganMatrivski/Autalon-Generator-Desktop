@@ -7,10 +7,10 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from "react-bootstrap";
-import GetFnListByTargetUI from "../functions/GetFnListByTargetUI";
-import mappedFnList from "../functions/mappedFnList";
-import useStore from "../store";
-import FunctionValue from "../structs/Class/FunctionValue";
+import GetFnListByTargetUI from "src/functions/GetFnListByTargetUI";
+import mappedFnList from "src/functions/mappedFnList";
+import useStore from "src/store";
+import FunctionValue from "src/structs/Class/FunctionValue";
 import CommandPickerDetailed from "./CommandPickerDetailed";
 import CommandPickerSimple from "./CommandPickerSimple";
 

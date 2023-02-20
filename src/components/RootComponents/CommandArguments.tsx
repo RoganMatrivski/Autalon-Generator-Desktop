@@ -1,12 +1,12 @@
 import React, { useMemo, useState } from "react";
 import { DevTool } from "@hookform/devtools";
 
-import useStore from "../store";
+import useStore from "src/store";
 import { Button, Form, Modal } from "react-bootstrap";
-import FunctionValue from "../structs/Class/FunctionValue";
-import { ArgType } from "../structs/Interface/Argtype";
-import { FunctionMetadata } from "../structs/Interface/FunctionMetadata";
-import { FunctionMetadataArg } from "../structs/Interface/FunctionMetadataArg";
+import FunctionValue from "src/structs/Class/FunctionValue";
+import { ArgType } from "src/structs/Interface/Argtype";
+import { FunctionMetadata } from "src/structs/Interface/FunctionMetadata";
+import { FunctionMetadataArg } from "src/structs/Interface/FunctionMetadataArg";
 
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 

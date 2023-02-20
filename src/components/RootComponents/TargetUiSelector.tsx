@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 
-import useStore from "../store";
-import { TargetUI } from "../structs/Interface/TargetUI";
+import useStore from "src/store";
+import { TargetUI } from "src/structs/Interface/TargetUI";
 
 export default function TargetUiSelector() {
   const {

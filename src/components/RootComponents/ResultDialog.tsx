@@ -1,4 +1,4 @@
-import { Button, Modal, Stack } from "react-bootstrap";
+import { Button, ButtonGroup, Modal, Stack } from "react-bootstrap";
 import { useEffect, useMemo } from "react";
 
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -11,13 +11,13 @@ import stripAnsi from "strip-ansi";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-import useStore from "../store";
+import useStore from "src/store";
 
 import { transpile_groovy } from "@RoganMatrivski/autalon-transpiler";
 
-import mappedFnList from "../functions/mappedFnList";
-import { ArgType } from "../structs/Interface/Argtype";
-import FunctionValue from "../structs/Class/FunctionValue";
+import mappedFnList from "src/functions/mappedFnList";
+import { ArgType } from "src/structs/Interface/Argtype";
+import FunctionValue from "src/structs/Class/FunctionValue";
 
 type ResultDialogProps = {
   show: boolean;
@@ -78,7 +78,8 @@ export default function ResultDialog(props: ResultDialogProps) {
                   str =>
                     !(str.startsWith("import ") || str.startsWith("package "))
                 )
-                .join("\n")}
+                .join("\n")
+                .trimStart()}
           </SyntaxHighlighter>
         ) : (
           <>
@@ -93,6 +94,20 @@ export default function ResultDialog(props: ResultDialogProps) {
       </Modal.Body>
       <Modal.Footer>
         <Stack direction="horizontal" gap={3}>
+          <ButtonGroup>
+            <Button
+              href="https://github.com/RoganMatrivski/AutalonDriver-Java/releases/latest"
+              target="_blank"
+            >
+              Latest Katalon Driver
+            </Button>
+            <Button
+              href="https://github.com/RoganMatrivski/Autalon-Generator/blob/master/docs/USAGE.md"
+              target="_blank"
+            >
+              How to use
+            </Button>
+          </ButtonGroup>
           <CopyToClipboard
             text={scriptResult || stripAnsi(errorString || "")}
             onCopy={() => alert("Copied")}

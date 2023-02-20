@@ -4,8 +4,8 @@ import { Button, ButtonGroup } from "react-bootstrap";
 import { useFilePicker } from "use-file-picker";
 import { saveAs } from "file-saver";
 
-import useStore from "../store";
-import FunctionValue from "../structs/Class/FunctionValue";
+import useStore from "src/store";
+import FunctionValue from "src/structs/Class/FunctionValue";
 
 export default function SaveLoadButton() {
   const { instructionList, setInstruction } = useStore();

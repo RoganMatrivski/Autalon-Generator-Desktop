@@ -1,9 +1,9 @@
 import { get_fn_metadata } from "@RoganMatrivski/autalon-transpiler";
-import { ArgType } from "../structs/Interface/Argtype";
-import { SourceFunctionMetadata } from "../structs/Interface/SourceFunctionMetadata";
+import { ArgType } from "src/structs/Interface/Argtype";
+import { SourceFunctionMetadata } from "src/structs/Interface/SourceFunctionMetadata";
 
 import produce from "immer";
-import { FunctionMetadata } from "../structs/Interface/FunctionMetadata";
+import { FunctionMetadata } from "src/structs/Interface/FunctionMetadata";
 
 // This is a stopgap solution
 // TODO: Match argtype from this and transpiler
