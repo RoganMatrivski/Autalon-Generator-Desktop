@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@RoganMatrivski/autalon-transpiler": "0.2.0",
+    "@robinmauritz/autalon-transpiler": "0.2.3",
     "@hookform/devtools": "^4.3.0",
     "ansi-to-react": "^6.1.6",
     "array-move": "^4.0.0",

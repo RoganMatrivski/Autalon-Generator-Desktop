@@ -2,11 +2,6 @@
 # yarn lockfile v1
 
 
-"@RoganMatrivski/autalon-transpiler@0.2.0":
-  version "0.2.0"
-  resolved "https://npm.pkg.github.com/download/@RoganMatrivski/autalon-transpiler/0.2.0/5b3bbfb04f690980a76d41d807bc9fa193ba66dc#5b3bbfb04f690980a76d41d807bc9fa193ba66dc"
-  integrity sha512-rHfH5mj5q3c4xQsxRkW975ANF21uDwdzNMdG1xDtWStuXxFN/+xw13Wg7ZD3+yLjX89myVB9sYdEPXt5k00KVw==
-
 "@ampproject/remapping@^2.1.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.2.0.tgz#56c133824780de3174aed5ab6834f3026790154d"
@@ -611,6 +606,11 @@
     dom-helpers "^5.2.0"
     uncontrollable "^7.2.1"
     warning "^4.0.3"
+
+"@robinmauritz/autalon-transpiler@0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@robinmauritz/autalon-transpiler/-/autalon-transpiler-0.2.3.tgz#36fd0b0d53a572f4bbcf71cfee3fc204d2e4e546"
+  integrity sha512-14YwmIrJaPimROjc7UXVXLGQ0XJhN5SAfQjJmISF7cZO9Li97XqoUN3vrAUAC4Q6UExuCHi08F9/UMcu2npnXA==
 
 "@rollup/pluginutils@^5.0.2":
   version "5.0.2"
