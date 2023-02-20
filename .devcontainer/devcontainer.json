@@ -37,7 +37,7 @@
   "postStartCommand": {
     "corepackSetup": "corepack enable",
     "dirOwn": "sudo chown node:node ${containerWorkspaceFolder}/node_modules ${containerWorkspaceFolder}/dist ${containerWorkspaceFolder}/dist-ssr",
-    "yarnLink": "cd /mnt/autalon_transpiler/pkg/ && yarn link && cd ${containerWorkspaceFolder} && yarn link @RoganMatrivski/autalon-transpiler",
+    "yarnLink": "cd /mnt/autalon_transpiler/pkg/ && yarn link && cd ${containerWorkspaceFolder} && yarn link @robinmauritz/autalon-transpiler",
     "yarnPkgInstall": "yarn"
   },
   // Configure tool-specific properties.

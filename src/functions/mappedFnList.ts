@@ -1,4 +1,4 @@
-import { get_fn_metadata } from "@RoganMatrivski/autalon-transpiler";
+import { get_fn_metadata } from "@robinmauritz/autalon-transpiler";
 import { ArgType } from "src/structs/Interface/Argtype";
 import { SourceFunctionMetadata } from "src/structs/Interface/SourceFunctionMetadata";
 

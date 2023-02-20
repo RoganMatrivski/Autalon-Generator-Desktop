@@ -13,7 +13,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import useStore from "src/store";
 
-import { transpile_groovy } from "@RoganMatrivski/autalon-transpiler";
+import { transpile_groovy } from "@robinmauritz/autalon-transpiler";
 
 import mappedFnList from "src/functions/mappedFnList";
 import { ArgType } from "src/structs/Interface/Argtype";
