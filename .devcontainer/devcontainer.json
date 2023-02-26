@@ -1,16 +1,15 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.234.0/containers/ubuntu
 {
-  "name": "Node.js & TypeScript",
-  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-  "image": "mcr.microsoft.com/devcontainers/typescript-node:0-18",
-  "features": {
-    "ghcr.io/devcontainers/features/node:1": {}
+  "name": "Ubuntu",
+  "build": {
+    "dockerfile": "Dockerfile",
+    // Update 'VARIANT' to pick an Ubuntu version: jammy / ubuntu-22.04, focal / ubuntu-20.04, bionic /ubuntu-18.04
+    // Use ubuntu-22.04 or ubuntu-18.04 on local arm64/Apple Silicon.
+    "args": {
+      "VARIANT": "ubuntu-22.04"
+    }
   },
-  // Features to add to the dev container. More info: https://containers.dev/features.
-  // "features": {},
-  // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  // "forwardPorts": [],
   "mounts": [
     {
       "source": "${localWorkspaceFolderBasename}-cache-node_modules",
@@ -26,61 +25,71 @@
       "source": "${localWorkspaceFolderBasename}-cache-dist_ssr",
       "target": "${containerWorkspaceFolder}/dist-ssr",
       "type": "volume"
-    },
-    {
-      "source": "autalon_transpiler_volume",
-      "target": "/mnt/autalon_transpiler/pkg",
-      "type": "volume"
     }
   ],
-  // Use 'postCreateCommand' to run commands after the container is created.
-  "postStartCommand": {
-    "corepackSetup": "corepack enable",
-    "dirOwn": "sudo chown node:node ${containerWorkspaceFolder}/node_modules ${containerWorkspaceFolder}/dist ${containerWorkspaceFolder}/dist-ssr",
-    "yarnLink": "cd /mnt/autalon_transpiler/pkg/ && yarn link && cd ${containerWorkspaceFolder} && yarn link @robinmauritz/autalon-transpiler",
-    "yarnPkgInstall": "yarn"
-  },
   // Configure tool-specific properties.
   "customizations": {
     // Configure properties specific to VS Code.
     "vscode": {
       // Add the IDs of extensions you want installed when the container is created.
       "extensions": [
-        "alefragnani.Bookmarks",
-        "bierner.color-info", // JSX and CSS color information
-        "bierner.emojisense", // Emoji sense for markdown
-        "christian-kohler.npm-intellisense", // Autocompletes npm modules in import statements
-        "christian-kohler.path-intellisense",
-        "cmstead.js-codeformer",
-        "cmstead.jsrefactor",
-        "cssho.vscode-svgviewer", // SVG viewer
-        "davidanson.vscode-markdownlint",
-        "dbaeumer.vscode-eslint", // ESLint
-        "drKnoxy.eslint-disable-snippets",
-        "dsznajder.es7-react-js-snippets",
-        "eamodio.gitlens", // IDE Git information
-        "eg2.vscode-npm-script", // NPM support for VS code
-        "esbenp.prettier-vscode", // Prettier code formatter
-        "github.vscode-pull-request-github", // Github interaction
-        "Gruntfuggly.todo-tree", // Highlights TODO comments
-        "IBM.output-colorizer", // Colorize your output/test logs
-        "JakeWilson.vscode-cdnjs", // Search and embed libraries from cdnjs.com
-        "jpoissonnier.vscode-styled-components", // Styled components
-        "ms-azuretools.vscode-docker", // Docker integration and linting
-        "oderwat.indent-rainbow",
-        "planbcoding.vscode-react-refactor",
-        "quicktype.quicktype",
-        "Rubymaniac.vscode-paste-and-indent",
-        "shardulm94.trailing-spaces", // Show trailing spaces
-        "spikespaz.vscode-smoothtype", // smooth cursor animation
-        "stkb.rewrap", // rewrap comments after n characters on one line
-        "visualstudioexptteam.vscodeintellicode", // AI-assisted development
-        "vscode-icons-team.vscode-icons", // Better file extension icons
+        "zxh404.vscode-proto3", // Supports Proto syntax
         "xabikos.JavaScriptSnippets",
-        "EditorConfig.EditorConfig"
-      ]
+        "vscode-icons-team.vscode-icons", // Better file extension icons
+        "visualstudioexptteam.vscodeintellicode", // AI-assisted development
+        "tamasfe.even-better-toml", // for Cargo.toml
+        "stkb.rewrap", // rewrap comments after n characters on one line
+        "spikespaz.vscode-smoothtype", // smooth cursor animation
+        "shardulm94.trailing-spaces", // Show trailing spaces
+        "rust-lang.rust-analyzer",
+        "Rubymaniac.vscode-paste-and-indent",
+        "redhat.vscode-yaml", // Kubernetes, Drone syntax highlighting
+        "quicktype.quicktype", // Paste JSON as code
+        "planbcoding.vscode-react-refactor",
+        "oderwat.indent-rainbow",
+        "ms-azuretools.vscode-docker", // Docker integration and linting
+        "mohsen1.prettify-json", // Prettify JSON data
+        "jrebocho.vscode-random", // Generates random values
+        "jpoissonnier.vscode-styled-components", // Styled components
+        "JakeWilson.vscode-cdnjs", // Search and embed libraries from cdnjs.com
+        "IBM.output-colorizer", // Colorize your output/test logs
+        "Gruntfuggly.todo-tree", // Highlights TODO comments
+        "github.vscode-pull-request-github", // Github interaction
+        "esbenp.prettier-vscode", // Prettier code formatter
+        "eg2.vscode-npm-script", // NPM support for VS code
+        "EditorConfig.EditorConfig",
+        "eamodio.gitlens", // IDE Git information
+        "dsznajder.es7-react-js-snippets",
+        "drKnoxy.eslint-disable-snippets",
+        "dbaeumer.vscode-eslint", // ESLint
+        "davidanson.vscode-markdownlint",
+        "cssho.vscode-svgviewer", // SVG viewer
+        "cmstead.jsrefactor",
+        "cmstead.js-codeformer",
+        "christian-kohler.path-intellisense",
+        "christian-kohler.npm-intellisense", // Autocompletes npm modules in import statements
+        "bierner.emojisense", // Emoji sense for markdown
+        "bierner.color-info", // JSX and CSS color information
+        "bajdzis.vscode-database", // Supports connections to mysql or postgres, over SSL, socked
+        "alefragnani.Bookmarks", // Manage bookmarks
+        "tauri-apps.tauri-vscode"
+      ],
+      // Set *default* container specific settings.json values on container create.
+      "settings": {}
     }
   },
-  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-  // "remoteUser": "root"
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [6080],
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postStartCommand": {
+    "dirOwn": "sudo chown vscode:vscode ${containerWorkspaceFolder}/node_modules ${containerWorkspaceFolder}/dist ${containerWorkspaceFolder}/dist-ssr",
+    "yarnPkgInstall": "yarn"
+  },
+  // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  "remoteUser": "vscode",
+  "features": {
+    "node": "lts",
+    "rust": "latest",
+    "ghcr.io/devcontainers/features/desktop-lite:1": {}
+  }
 }
