@@ -11,7 +11,15 @@
   },
   "tauri": {
     "allowlist": {
-      "all": false
+      "all": false,
+      "dialog": {
+        "all": false,
+        "ask": false,
+        "confirm": true,
+        "message": true,
+        "open": false,
+        "save": false
+      }
     },
     "bundle": {
       "active": true,
@@ -28,7 +36,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.github.roganmatrivski.autalon-generator",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -58,7 +66,8 @@
         "height": 600,
         "resizable": true,
         "title": "Autalon Generator",
-        "width": 800
+        "width": 800,
+        "center": true
       }
     ]
   }
