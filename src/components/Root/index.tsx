@@ -18,6 +18,7 @@ import UndoRedoButton from "./UndoRedoButton";
 import SaveLoadButton from "./SaveLoadButton";
 import ExportProjectPanel from "./ExportProjectPanel";
 import CommandList from "./CommandList";
+import { Link } from "react-router-dom";
 
 export default function Root(props: any) {
   const { instructionList, addInstruction, clearInstruction } = useStore();
@@ -57,14 +58,9 @@ export default function Root(props: any) {
         <>
           <SaveLoadButton />
         </>
-        <Button
-          disabled={instructionList.length <= 0}
-          onClick={() => {
-            setShowResultDialog(true);
-          }}
-        >
-          Export
-        </Button>
+        <Link to="/export">
+          <Button>Export Page</Button>
+        </Link>
         <ExportProjectPanel />
       </Stack>
     </Container>
