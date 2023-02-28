@@ -12,7 +12,6 @@ import {
 import useStore from "src/store";
 import FunctionValue from "src/structs/Class/FunctionValue";
 import GetFnListByTargetUI from "src/functions/GetFnListByTargetUI";
-import ResultDialog from "./ResultDialog";
 import TargetUiSelector from "./TargetUiSelector";
 import UndoRedoButton from "./UndoRedoButton";
 import SaveLoadButton from "./SaveLoadButton";
@@ -23,13 +22,8 @@ import { Link } from "react-router-dom";
 export default function Root(props: any) {
   const { instructionList, addInstruction, clearInstruction } = useStore();
 
-  const [showResultDialog, setShowResultDialog] = React.useState(false);
   return (
     <Container>
-      <ResultDialog
-        show={showResultDialog}
-        handleClose={() => setShowResultDialog(false)}
-      />
       <Stack direction="horizontal" gap={3} className="my-3">
         <UndoRedoButton />
         <div className="ms-auto" />
