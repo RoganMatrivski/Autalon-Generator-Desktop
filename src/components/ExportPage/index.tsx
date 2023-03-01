@@ -10,9 +10,17 @@ import ConvertInstructionList from "src.functions/ConvertInstructionList";
 import { useMemo } from "react";
 import CodeRender from "src.components/Shared/CodeRender";
 import CopyToClipboard from "react-copy-to-clipboard";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Export() {
+  const navigate = useNavigate();
+
   const { instructionList } = useStore();
+
+  if (instructionList.length <= 0) {
+    navigate("/");
+  }
+
   const [scriptResult, errorString] = useMemo(
     () => ConvertInstructionList(instructionList),
     [instructionList]
@@ -20,6 +28,9 @@ export default function Export() {
 
   return (
     <Container>
+      <Link to="/">
+        <Button>Back</Button>
+      </Link>
       <h1>Export Result</h1>
       {scriptResult != null ? (
         <CodeRender>
