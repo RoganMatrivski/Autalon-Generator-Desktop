@@ -30,6 +30,11 @@
       "source": "${localWorkspaceFolderBasename}-tauri-target",
       "target": "${containerWorkspaceFolder}/src-tauri/target",
       "type": "volume"
+    },
+    {
+      "source": "${localWorkspaceFolderBasename}-devcontainer-cargo-cache",
+      "target": "/usr/local/cargo",
+      "type": "volume"
     }
   ],
   // Configure tool-specific properties.
@@ -89,7 +94,7 @@
   ],
   // Use 'postCreateCommand' to run commands after the container is created.
   "postStartCommand": {
-    "dirOwn": "sudo chown vscode:vscode ${containerWorkspaceFolder}/node_modules ${containerWorkspaceFolder}/dist ${containerWorkspaceFolder}/dist-ssr ${containerWorkspaceFolder}/src-tauri/target",
+    "dirOwn": "sudo chown vscode:vscode ${containerWorkspaceFolder}/node_modules ${containerWorkspaceFolder}/dist ${containerWorkspaceFolder}/dist-ssr ${containerWorkspaceFolder}/src-tauri/target /usr/local/cargo",
     "yarnPkgInstall": "yarn"
   },
   // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
