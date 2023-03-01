@@ -11,15 +11,7 @@
   },
   "tauri": {
     "allowlist": {
-      "all": false,
-      "dialog": {
-        "all": false,
-        "ask": false,
-        "confirm": true,
-        "message": true,
-        "open": false,
-        "save": false
-      }
+      "all": false
     },
     "bundle": {
       "active": true,
