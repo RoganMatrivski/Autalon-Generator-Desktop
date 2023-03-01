@@ -133,7 +133,7 @@ const store = create<GlobalState>()(
 
 export default store;
 
-export type {GlobalState};
+export type { GlobalState };
 
 if (process.env.NODE_ENV === "development") {
   mountStoreDevtool("Store", store);
