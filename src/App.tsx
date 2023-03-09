@@ -10,6 +10,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Root from "src.components/RootPage/index";
 import Export from "src/components/ExportPage";
+import ExportProject from "src/components/ExportProjectPage";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
     element: <Root />,
   },
   { path: "/export", element: <Export /> },
+  { path: "/exportproject", element: <ExportProject /> },
 ]);
 
 function App() {

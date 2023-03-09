@@ -28,10 +28,12 @@ export default function Export() {
 
   return (
     <Container>
-      <Link to="/">
-        <Button>Back</Button>
-      </Link>
-      <h1>Export Result</h1>
+      <Stack direction="horizontal">
+        <Link to="/">
+          <Button>Back</Button>
+        </Link>
+        <h1>Export Result</h1>
+      </Stack>
       {scriptResult != null ? (
         <CodeRender>
           {"// Import stuffs\n\n" +

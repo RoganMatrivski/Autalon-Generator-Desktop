@@ -17,9 +17,10 @@ import UndoRedoButton from "./UndoRedoButton";
 import SaveLoadButton from "./SaveLoadButton";
 import ExportProjectPanel from "./ExportProjectPanel";
 import CommandList from "./CommandList";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Root(props: any) {
+  const navigate = useNavigate();
   const { instructionList, addInstruction, clearInstruction } = useStore();
 
   return (
@@ -52,9 +53,18 @@ export default function Root(props: any) {
         <>
           <SaveLoadButton />
         </>
-        <Link to="/export">
-          <Button>Export Page</Button>
-        </Link>
+        <Button
+          onClick={() => navigate("/export")}
+          disabled={instructionList.length <= 0}
+        >
+          Export Page
+        </Button>
+        <Button
+          onClick={() => navigate("/exportproject")}
+          disabled={instructionList.length <= 0}
+        >
+          Export Project Page
+        </Button>
         <ExportProjectPanel />
       </Stack>
     </Container>
