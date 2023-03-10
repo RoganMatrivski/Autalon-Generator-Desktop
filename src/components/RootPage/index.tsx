@@ -15,7 +15,6 @@ import GetFnListByTargetUI from "src/functions/GetFnListByTargetUI";
 import TargetUiSelector from "./TargetUiSelector";
 import UndoRedoButton from "./UndoRedoButton";
 import SaveLoadButton from "./SaveLoadButton";
-import ExportProjectPanel from "./ExportProjectPanel";
 import CommandList from "./CommandList";
 import { useNavigate } from "react-router-dom";
 
@@ -65,7 +64,6 @@ export default function Root(props: any) {
         >
           Export Project Page
         </Button>
-        <ExportProjectPanel />
       </Stack>
     </Container>
   );
