@@ -3,7 +3,7 @@ import { Button, ButtonGroup } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 
 import GetArgsDisplayText from "src/functions/GetArgsDisplayText";
-import mappedFnList from "src/functions/mappedFnList";
+import mappedFnListGet from "src/functions/mappedFnList";
 
 import FunctionValue from "src/structs/Class/FunctionValue";
 
@@ -12,6 +12,8 @@ import ConfirmationButton from "./ConfirmationButton";
 import CommandArguments from "./CommandArguments";
 
 import useStore from "src/store";
+import usePromise from "react-promise-suspense";
+import mappedFnList from "src/functions/mappedFnList";
 
 type CommandArgs = {
   commandIndex: number;
@@ -27,6 +29,8 @@ export default function Command(props: CommandArgs) {
   const [showCommandPickerSimpleWindow, setShowCommandPickerSimpleWindow] =
     useState(false);
 
+  const mappedFnList = usePromise(mappedFnListGet, []);
+
   // Use effect hooks
   useEffect(() => {
     if (props.functionValue.name == null) {
@@ -36,7 +40,7 @@ export default function Command(props: CommandArgs) {
 
   // Other calculations
   let { name: fnName, argValue } = props.functionValue;
-  let metadata = mappedFnList().find(x => x.name == fnName);
+  let metadata = mappedFnList.find(x => x.name == fnName);
 
   // On modal close event
   function onModalClose() {

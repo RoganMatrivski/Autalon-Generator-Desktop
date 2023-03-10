@@ -6,6 +6,9 @@ import useStore from "src/store";
 import FunctionValue from "src/structs/Class/FunctionValue";
 import { ArgType } from "src/structs/Interface/Argtype";
 
+import usePromise from "react-promise-suspense";
+import mappedFnListGet from "src/functions/mappedFnList";
+
 type CommandPickerSimpleProps = {
   show: boolean;
   hideFn: () => void;
@@ -21,19 +24,21 @@ export default function CommandPickerSimple(props: CommandPickerSimpleProps) {
     props.hideFn();
   };
 
+  const mappedFnList = usePromise(mappedFnListGet, []);
+
   // Fetches command list and removes duplicate
   // TODO: Add selective target UI
-  const commandList = GetFnListByTargetUI(targetUI).filter(
+  const commandList = GetFnListByTargetUI(mappedFnList, targetUI).filter(
     (value, index, self) => index === self.findIndex(t => t[0] === value[0])
   );
 
   function getFnMetadata(name: string) {
-    return mappedFnList().find(x => x.name == name);
+    return mappedFnList.find(x => x.name == name);
   }
 
   function handleUpdateInstruction(fnNameDisplayName: string[]) {
     const [name, displayName] = fnNameDisplayName;
-    const defaultArgsFromFnName = mappedFnList()
+    const defaultArgsFromFnName = mappedFnList
       .find(x => x.name == name)
       ?.args?.map(x => x.defaultValue);
 

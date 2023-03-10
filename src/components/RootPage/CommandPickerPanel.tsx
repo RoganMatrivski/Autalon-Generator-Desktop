@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import {
   Button,
   Form,
@@ -102,7 +102,7 @@ export default function CommandPickerPanel(props: CommandPickerPanelProps) {
           </ToggleButton>
         </ToggleButtonGroup>
       </Modal.Header>
-      {dialog}
+      <Suspense fallback="Loading...">{dialog}</Suspense>
     </Modal>
   );
 }

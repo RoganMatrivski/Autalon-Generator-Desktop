@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@hookform/devtools": "^4.3.0",
-    "@robinmauritz/autalon-transpiler": "0.2.3",
     "@tauri-apps/api": "^1.2.0",
     "ansi-to-react": "^6.1.6",
     "array-move": "^4.0.0",
@@ -25,6 +24,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.42.1",
     "react-icons": "^4.7.1",
+    "react-promise-suspense": "^0.3.4",
     "react-router-dom": "^6.8.1",
     "react-scroll-to-bottom": "^4.2.0",
     "react-syntax-highlighter": "^15.5.0",

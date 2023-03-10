@@ -7,12 +7,14 @@ import stripAnsi from "strip-ansi";
 import useStore from "src/store";
 import ConvertInstructionList from "src.functions/ConvertInstructionList";
 
-import { useMemo } from "react";
+import { Suspense, useMemo } from "react";
 import CodeRender from "src.components/Shared/CodeRender";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function Export() {
+import usePromise from "react-promise-suspense";
+
+function InnerBody() {
   const navigate = useNavigate();
 
   const { instructionList } = useStore();
@@ -21,19 +23,12 @@ export default function Export() {
     navigate("/");
   }
 
-  const [scriptResult, errorString] = useMemo(
-    () => ConvertInstructionList(instructionList),
-    [instructionList]
-  );
+  const [scriptResult, errorString] = usePromise(ConvertInstructionList, [
+    instructionList,
+  ]);
 
   return (
-    <Container>
-      <Stack direction="horizontal">
-        <Link to="/">
-          <Button>Back</Button>
-        </Link>
-        <h1>Export Result</h1>
-      </Stack>
+    <>
       {scriptResult != null ? (
         <CodeRender>
           {"// Import stuffs\n\n" +
@@ -78,6 +73,22 @@ export default function Export() {
           <Button>Copy to Clipboard</Button>
         </CopyToClipboard>
       </Stack>
+    </>
+  );
+}
+
+export default function Export() {
+  return (
+    <Container>
+      <Stack direction="horizontal">
+        <Link to="/">
+          <Button>Back</Button>
+        </Link>
+        <h1>Export Result</h1>
+      </Stack>
+      <Suspense fallback={<></>}>
+        <InnerBody />
+      </Suspense>
     </Container>
   );
 }

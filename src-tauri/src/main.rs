@@ -4,6 +4,7 @@
 )]
 
 mod exporter;
+mod transpiler;
 mod github_tools;
 
 pub struct ReqwestClient(reqwest::Client);
@@ -17,7 +18,9 @@ fn main() {
     tauri::Builder::default()
         .manage(ReqwestClient(reqwest_client))
         .invoke_handler(tauri::generate_handler![
-            exporter::export_to_katalon_project
+            exporter::export_to_katalon_project,
+            transpiler::get_fn_metadata,
+            transpiler::transpile_groovy,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

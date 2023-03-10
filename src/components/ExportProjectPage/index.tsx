@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import { Button, Container, ProgressBar, Stack } from "react-bootstrap";
 
 import ScrollToBottom from "react-scroll-to-bottom";
@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import useStore from "src/store";
 import ConvertInstructionList from "src.functions/ConvertInstructionList";
+import usePromise from "react-promise-suspense";
 
 function xoshiro128ss(a: number, b: number, c: number, d: number) {
   return function () {
@@ -33,7 +34,7 @@ function rand(seed: number) {
 const URL =
   "https://github.com/RoganMatrivski/AutalonDriver-Java/releases/download/v0.3.0/autalondriver-v0.3.0-full.jar";
 
-export default function ExportProjectPage() {
+function InnerBody() {
   const [progress, setProgress] = useState<number | null>(null);
   const [variant, setVariant] = useState("primary");
   const [log, setLog] = useState("");
@@ -56,16 +57,18 @@ export default function ExportProjectPage() {
     navigate("/");
   }
 
-  const [scriptResult, errorString] = useMemo(
-    () => ConvertInstructionList(instructionList),
-    [instructionList]
-  );
+  const [scriptResult, errorString] = usePromise(ConvertInstructionList, [
+    instructionList,
+  ]);
 
   if (errorString != null) {
     handleErrorLog(errorString);
   }
 
   async function handleDownload() {
+    setVariant("primary");
+    setProgress(null);
+
     const unlisten = [
       await listen("exporter::progress", event =>
         setProgress(event.payload as number)
@@ -89,13 +92,7 @@ export default function ExportProjectPage() {
   }
 
   return (
-    <Container>
-      <Stack direction="horizontal">
-        <Link to="/">
-          <Button>Back</Button>
-        </Link>
-        <h1>Export as Project</h1>
-      </Stack>
+    <>
       <ScrollToBottom initialScrollBehavior="auto">
         <div style={{ height: "30vh" }}>
           <code style={{ whiteSpace: "pre-wrap" }}>{log}</code>
@@ -107,6 +104,22 @@ export default function ExportProjectPage() {
         variant={variant}
       />
       <Button onClick={() => handleDownload()}>Export</Button>
+    </>
+  );
+}
+
+export default function ExportProjectPage() {
+  return (
+    <Container>
+      <Stack direction="horizontal">
+        <Link to="/">
+          <Button>Back</Button>
+        </Link>
+        <h1>Export as Project</h1>
+      </Stack>
+      <Suspense fallback="Loading">
+        <InnerBody />
+      </Suspense>
     </Container>
   );
 }

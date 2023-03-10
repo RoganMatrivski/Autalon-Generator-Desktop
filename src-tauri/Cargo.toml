@@ -27,6 +27,7 @@ tar = "0.4.38"
 flate2 = "1.0.25"
 walkdir = "2.3.2"
 chrono = "0.4.23"
+autalon-transpiler = { git = "https://github.com/RoganMatrivski/Autalon-Transpiler.git", version = "0.2.3" }
 
 [features]
 # by default Tauri runs in production mode

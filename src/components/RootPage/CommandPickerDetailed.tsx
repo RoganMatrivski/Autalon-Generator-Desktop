@@ -10,9 +10,11 @@ import {
   Stack,
 } from "react-bootstrap";
 import GetFnListByTargetUI from "src/functions/GetFnListByTargetUI";
-import mappedFnList from "src/functions/mappedFnList";
+import mappedFnListGet from "src/functions/mappedFnList";
 import useStore from "src/store";
 import FunctionValue from "src/structs/Class/FunctionValue";
+
+import usePromise from "react-promise-suspense";
 
 type CommandPickerDetailedProps = {
   show: boolean;
@@ -31,6 +33,8 @@ export default function CommandPickerDetailed(
     props.fnName || null
   );
 
+  const mappedFnList = usePromise(mappedFnListGet, []);
+
   const handleClose = () => {
     props.hideFn();
   };
@@ -40,11 +44,11 @@ export default function CommandPickerDetailed(
       return null;
     }
 
-    return mappedFnList().find(x => x.name == selectedInstruction);
+    return mappedFnList.find(x => x.name == selectedInstruction);
   }, [selectedInstruction]);
 
   // Fetches command list and removes duplicate
-  const commandList = GetFnListByTargetUI(targetUI).filter(
+  const commandList = GetFnListByTargetUI(mappedFnList, targetUI).filter(
     (value, index, self) => index === self.findIndex(t => t[0] === value[0])
   );
 
@@ -53,13 +57,13 @@ export default function CommandPickerDetailed(
   }
 
   function getFnMetadata(name: string) {
-    return mappedFnList().find(x => x.name == name);
+    return mappedFnList.find(x => x.name == name);
   }
 
   function handleUpdateInstruction() {
     const fnName = selectedInstruction;
 
-    const defaultArgsFromFnName = mappedFnList()
+    const defaultArgsFromFnName = mappedFnList
       .find(x => x.name == fnName)
       ?.args?.map(x => x.defaultValue);
 
